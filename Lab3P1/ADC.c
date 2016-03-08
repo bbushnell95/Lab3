@@ -16,7 +16,7 @@ void initADC(){
     AD1CON3bits.SAMC=3;
     AD1CON3bits.ADCS=8;
     AD1CHSbits.CH0NA=0;
-    AD1CHSbits.CH0SA=0;
+    AD1CHSbits.CH0SA=0;     //AN0/RB0
     
     AD1CON1bits.ADON=1;
 }

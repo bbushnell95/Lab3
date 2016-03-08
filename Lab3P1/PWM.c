@@ -10,14 +10,14 @@ void initPWM(){
     TMR2 = 0;
     T2CONbits.TON = 0;   
     
-    OC2CONbits.OCTSEL = 0;      //init OC2
+    OC2CONbits.OCTSEL = 0;      //init OC2      left wheel
     OC2CONbits.OCM = 6;
     OC2RS = 5000;
     OC2CONbits.ON = 1;
     
-    OC4CONbits.OCTSEL = 0;      //init OC4
+    OC4CONbits.OCTSEL = 0;      //init OC4      right wheel
     OC4CONbits.OCM = 6;
-    OC4RS = 7500;
+    OC4RS = 5000;
     OC4CONbits.ON = 1;
     
 }
