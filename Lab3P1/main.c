@@ -52,19 +52,17 @@ int main(void){
     TRIS_pin2 = OUTPUT;
     TRIS_Apin = INPUT;
     
-    //myString = buildString(7.456); test
-    
     while(1){
         switch(State){
             case Forward:
                 pin1 = ON;
                 pin2 = OFF;
-                
+                // NOTE: when does pressCount get set??? 
                 if (switchFlag == 1 && pressCount == 2){
                     pressCount = 0;
                     switchFlag = 0;
                 }
-                if (switchFlag == 1 && pressCount ==1){
+                if (switchFlag == 1 && pressCount == 1){
                     switchFlag = 0;
                     State = Backwards;
                 }
@@ -81,7 +79,7 @@ int main(void){
                     pressCount = 0;
                     switchFlag = 0;
                 }
-                if (switchFlag == 1 && pressCount ==1){
+                if (switchFlag == 1 && pressCount == 1){
                     State = Forward;
                     switchFlag = 0;
                     
@@ -143,6 +141,7 @@ char* buildString(float value){
 //controls the speed of the wheels
 //when pot is in the middle both motors should be going full speed
 //when pot is rotated all the way the respective motor should be going full speed
+
 void calculateODC(){
     if(val > 4.9){          //left wheel full speed
         OC2RS=10000;
@@ -156,12 +155,46 @@ void calculateODC(){
         OC2RS = 10000;
         OC4RS = 10000;
     }
-    else if(val > 2.6){         //left wheel spins faster than right
+    else if(val >= 2.6){         //left wheel spins faster than right
         OC2RS = 5000+(int)(val*1000);
         OC4RS = 5000-(int)(val*1000);
     }
-    else if(val< 2.4){          //right wheel spins faster than left
+    else if(val <= 2.4){          //right wheel spins faster than left
         OC2RS = 5000-(int)(val*1000);
         OC4RS = 5000+(int)(val*1000); 
     }
+}
+
+void speedTest(){
+    // change value of ADC1BUF0 instead of val???
+    
+    //testing speed of motors
+    //both wheels full speed
+    val = 2.5;
+    delayMs(100000); // delay for a minute
+    //right wheel full speed
+    val = 0.0;
+    delayMs(100000);
+    //left wheel full speed
+    val = 5.0;
+    delayMs(100000);
+    //left wheel faster than right wheel
+    val = 2.7;
+    delayMs(100000);
+    // right wheel faster than left wheel
+    val = 2.3;
+    delayMs(100000);
+    
+    //extra testing
+    
+    //left wheel faster than right wheel
+    val = 1.2;
+    delayMs(100000);
+    //right wheel faster than left wheel
+    val = 4.3;
+    delayMs(100000);
+    
+    //end with same speed
+    
+    val = 2.5;
 }
