@@ -2,12 +2,13 @@
 #include <xc.h>
 
 
-#define TRIS_RD0 TRISDbits.TRISD0
+#define TRIS_RD6 TRISDbits.TRISD6
 #define OUTPUT 1
 
 
 void initSwitch(){
-    TRIS_RD0 = OUTPUT;
+    TRIS_RD6 = OUTPUT;
+    
     CNPUDbits.CNPUD6=1;
     CNCONDbits.ON=1;        //turn on CN for port D
     CNENDbits.CNIED6=1;     //enables CN for RD6

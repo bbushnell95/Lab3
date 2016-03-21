@@ -8,16 +8,23 @@ void initPWM(){
     T2CONbits.TCKPS = 0;
     PR2 = 10000;
     TMR2 = 0;
-    T2CONbits.TON = 0;   
+    IFS0bits.T2IF=0;
     
     OC2CONbits.OCTSEL = 0;      //init OC2      left wheel
     OC2CONbits.OCM = 6;
-    OC2RS = 5000;
-    OC2CONbits.ON = 1;
+    OC2RS = 10000;
+   
+    //OC2CON = 0x0006; // datasheet for actual value
+    //OC2CONSET = 0x8000; //datasheet for actual value
+     OC2CONbits.ON = 1;
     
     OC4CONbits.OCTSEL = 0;      //init OC4      right wheel
     OC4CONbits.OCM = 6;
-    OC4RS = 5000;
-    OC4CONbits.ON = 1;
-    
+    OC4RS = 10000;
+   
+    //OC4CON = 0x0006; // datasheet fo ractual value
+    //OC4CONSET = 0x8000; // datasheet for actual value
+     OC4CONbits.ON = 1;
+     
+     T2CONbits.TON = 1;  
 }

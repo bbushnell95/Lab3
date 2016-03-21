@@ -18,6 +18,7 @@ void delayMs(unsigned int delay){
     TMR1=0;
     T1CONbits.TCKPS=3;      //prescaler of 256
     PR1=(((delay*10000)/256)-1);
+    
     T1CONbits.ON=1;
     IFS0bits.T1IF=0;
     while(IFS0bits.T1IF==0)
