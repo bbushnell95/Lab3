@@ -54,9 +54,6 @@ int main(void){
     
     while(1){
         switch(State){
-//            case Test:
-//                displayVoltage();
-//                State = Test;
             case Forward:
                 pin1 = ON;
                 pin2 = OFF;
@@ -110,9 +107,9 @@ void __ISR(_CHANGE_NOTICE_VECTOR, IPL7SRS) _CNInterrupt()
 void displayVoltage(){
     if(IFS0bits.AD1IF == 1){
             val = (float)((ADC1BUF0 / 222.3913043)); // dividing by 222.39 to put on max scale 4.6 CHANGE WHEN SWITCH TO BATTERY to 9 SCALE
-            //clearLCD();
-            //moveCursorLCD(1,1);
-            //printStringLCD(buildString(val));
+            clearLCD();
+            moveCursorLCD(1,1);
+            printStringLCD(buildString(val));
             IFS0bits.AD1IF = 0;
          }
 }
@@ -153,9 +150,9 @@ void calculateODC(){
 
 //    OC2RS = 5000;
 //    OC4RS = 10000;
-    clearLCD();
-    moveCursorLCD(1,1);
-    printStringLCD(buildString(val));
+//    clearLCD();
+//    moveCursorLCD(1,1);
+//    printStringLCD(buildString(val));
     if(val >= 4.6){          //left wheel full speed
         OC2RS = 10000;
         OC4RS = 0;
@@ -164,16 +161,16 @@ void calculateODC(){
         OC2RS = 0;
         OC4RS = 10000;
     }
-    else if(2.1 < val < 2.3){   //both wheels full speed
+    else if(val > 2.1 && val < 2.3){   //both wheels full speed
         OC2RS = 10000;
         OC4RS = 10000;
     }
-    else if(val >= 2.3){         //left wheel spins faster than right
+     else if(val >= 2.3){         //left wheel spins faster than right
         OC2RS = 10000;
-        OC4RS = (int)(val*2173); // value of 2174 comes from 10000/4.6 (max value ratio)
+        OC4RS = (int)(((4.6 - val) * 4348)); // value of 4348 comes from 10000/2.3 (max value ratio)
     }
     else if(val <= 2.1){          //right wheel spins faster than left
-        OC2RS = (int)(val*2173);
+        OC2RS = (int)(val*4348);
         OC4RS = 10000; 
     }
 }
@@ -183,13 +180,13 @@ void speedTest(){
     
     //testing speed of motors
     //both wheels full speed
-    val = 2.5;
+    val = 2.3;
     delayMs(100000); // delay for a minute
     //right wheel full speed
     val = 0.0;
     delayMs(100000);
     //left wheel full speed
-    val = 5.0;
+    val = 4.6;
     delayMs(100000);
     //left wheel faster than right wheel
     val = 2.7;
