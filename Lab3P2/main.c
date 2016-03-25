@@ -172,11 +172,6 @@ char* buildString(float value){
 
 void calculateODC(){
 
-//    OC2RS = 5000;
-//    OC4RS = 10000;
-//    clearLCD();
-//    moveCursorLCD(1,1);
-//    printStringLCD(buildString(val));
     if(val >= 4.6){          //left wheel full speed
         OC2RS = 10000;
         OC4RS = 0;
@@ -197,38 +192,4 @@ void calculateODC(){
         OC2RS = (int)(val*4348);
         OC4RS = 10000; 
     }
-}
-
-void speedTest(){
-    // change value of ADC1BUF0 instead of val???
-    
-    //testing speed of motors
-    //both wheels full speed
-    val = 2.3;
-    delayMs(100000); // delay for a minute
-    //right wheel full speed
-    val = 0.0;
-    delayMs(100000);
-    //left wheel full speed
-    val = 4.6;
-    delayMs(100000);
-    //left wheel faster than right wheel
-    val = 2.7;
-    delayMs(100000);
-    // right wheel faster than left wheel
-    val = 2.3;
-    delayMs(100000);
-    
-    //extra testing
-    
-    //left wheel faster than right wheel
-    val = 1.2;
-    delayMs(100000);
-    //right wheel faster than left wheel
-    val = 4.3;
-    delayMs(100000);
-    
-    //end with same speed
-    
-    val = 2.5;
 }

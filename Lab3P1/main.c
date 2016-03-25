@@ -19,6 +19,8 @@
 #define OUTPUT 0
 #define INPUT 1
 
+/* TESTING CODE */ 
+void speedTest();
 
 
 void displayVoltage();       //used to write the output voltage to the LCD
@@ -148,11 +150,6 @@ char* buildString(float value){
 
 void calculateODC(){
 
-//    OC2RS = 5000;
-//    OC4RS = 10000;
-//    clearLCD();
-//    moveCursorLCD(1,1);
-//    printStringLCD(buildString(val));
     if(val >= 4.6){          //left wheel full speed
         OC2RS = 10000;
         OC4RS = 0;
@@ -175,36 +172,37 @@ void calculateODC(){
     }
 }
 
+/* TESTING FOR LAB 3 PART 1 */
+
 void speedTest(){
-    // change value of ADC1BUF0 instead of val???
     
     //testing speed of motors
     //both wheels full speed
-    val = 2.3;
+    ADC1BUF0 = (int)(2.3 * 222.3913043);
     delayMs(100000); // delay for a minute
     //right wheel full speed
-    val = 0.0;
+    ADC1BUF0 = (int)(0.0 * 222.3913043);
     delayMs(100000);
     //left wheel full speed
-    val = 4.6;
+    ADC1BUF0 = (int)(4.6 * 222.3913043);
     delayMs(100000);
     //left wheel faster than right wheel
-    val = 2.7;
+    ADC1BUF0 = (int)(2.7 * 222.3913043);
     delayMs(100000);
     // right wheel faster than left wheel
-    val = 2.3;
+    ADC1BUF0 = (int)(2.3 * 222.3913043);
     delayMs(100000);
     
     //extra testing
     
     //left wheel faster than right wheel
-    val = 1.2;
+    ADC1BUF0 = (int)(1.2 * 222.3913043);
     delayMs(100000);
     //right wheel faster than left wheel
-    val = 4.3;
+    ADC1BUF0 = (int)4.3 * 222.3913043;
     delayMs(100000);
     
     //end with same speed
     
-    val = 2.5;
+    ADC1BUF0 = (int)(2.5 * 222.3913043);
 }
